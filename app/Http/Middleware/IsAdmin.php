@@ -15,6 +15,9 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        return $next($request);
+        if(Auth::user() && Auth::user()->role=='ADMIN'){
+            return $next($request);
+        }
+        return redirect('/home');
     }
 }
