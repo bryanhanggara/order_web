@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 
-class order_items extends Model
+class OrderItem extends Model
 {
     use HasFactory, HasUuids;
 

@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Dashboard - Siubur Batta</title>
+  <title>Dashboard - Sari Shop</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -25,6 +25,9 @@
   <link href="{{url('admin_fe/assets/vendor/quill/quill.bubble.css')}}" rel="stylesheet">
   <link href="{{url('admin_fe/assets/vendor/remixicon/remixicon.css')}}" rel="stylesheet">
   <link href="{{url('admin_fe/assets/vendor/simple-datatables/style.css')}}" rel="stylesheet">
+ 
+ 
+
 
   <!-- Template Main CSS File -->
   <link href="{{url('admin_fe/assets/css/style.css')}}" rel="stylesheet">
@@ -46,7 +49,7 @@
     <div class="d-flex align-items-center justify-content-between">
       <a href="index.html" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
-        <span class="d-none d-lg-block">SIUBUR ADMIN</span>
+        <span class="d-none d-lg-block">SARI SHOP ADMIN</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -109,7 +112,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link {{ Request::routeIs('dashboard') ? '' : 'collapsed' }}" href="{{route('dashboard')}}">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -118,7 +121,7 @@
       <li class="nav-heading">Sale</li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="">
+        <a class="nav-link {{ Request::routeIs('products.index') ? '' : 'collapsed' }}" href="{{route('products.index')}}">
           <i class="bi bi-bag"></i>
           <span>Produk</span>
         </a>
@@ -143,7 +146,7 @@
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; Copyright <strong><span>Sari Cafe</span></strong>. All Rights Reserved
+      &copy; Copyright <strong><span>Sari Shop</span></strong>. All Rights Reserved
     </div>
 
   </footer><!-- End Footer -->
@@ -169,6 +172,7 @@
 
   <!-- Template Main JS File -->
   <script src="{{url('admin_fe/assets/js/main.js')}}"></script>
+  
 
 </body>
 
