@@ -127,9 +127,15 @@
         </a>
       </li><!-- End Profile Page Nav -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="">
+        <a class="nav-link {{ Request::routeIs('orders.index') ? '' : 'collapsed' }}" href="{{route('orders.index')}}">
           <i class="bi bi-cart"></i>
           <span>Order</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+      <li class="nav-item">
+        <a class="nav-link {{ Request::routeIs('history') ? '' : 'collapsed' }}" href="{{route('history')}}">
+          <i class="bi bi-clock-history"></i>
+          <span>Riwayat Pemesanan</span>
         </a>
       </li><!-- End Profile Page Nav -->
 

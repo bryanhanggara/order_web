@@ -30,65 +30,82 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            let productIndex = 0;
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        let productIndex = 0;
 
-            const products = @json($products); // Menyertakan data produk dari controller
+        const products = @json($products); // Menyertakan data produk dari controller
 
-            // Fungsi untuk kalkulasi total harga
-            function calculateTotal() {
-                let total = 0;
-                $('.product-row').each(function() {
-                    let price = $(this).find('.product-select option:selected').data('price');
-                    let quantity = $(this).find('.quantity').val();
-                    if (price && quantity) {
-                        total += price * quantity;
-                    }
-                });
-                $('#total').val(total.toFixed(2));
-            }
+        // Fungsi untuk kalkulasi total harga
+        function calculateTotal() {
+            let total = 0;
+            $('.product-row').each(function() {
+                let price = $(this).find('.product-select option:selected').data('price');
+                let quantity = $(this).find('.quantity').val();
+                if (price && quantity) {
+                    total += price * quantity;
+                }
+            });
+            $('#total').val(total.toFixed(2));
+        }
 
-            // Fungsi untuk add produk
-            function addProductRow() {
-                let productOptions = products.map(product => 
-                    `<option value="${product.id}" data-price="${product.price}">${product.name}</option>`
-                ).join('');
+        // Fungsi untuk add produk
+        function addProductRow() {
+            let productOptions = products.map(product => 
+                `<option value="${product.id}" data-price="${product.price}" data-stock="${product.stock}">${product.name} (Stok: ${product.stock})</option>`
+            ).join('');
 
-                $('#product-list').append(`
-                    <div class="product-row mb-3">
-                        <div class="row">
-                            <div class="col-md-5">
-                                <select name="products[${productIndex}][id]" id="product-${productIndex}" class="form-control product-select" required>
-                                    <option value="">Pilih Produk</option>
-                                    ${productOptions}
-                                </select>
-                            </div>
-                            <div class="col-md-5">
-                                <input type="number" name="products[${productIndex}][quantity]" class="form-control quantity" min="1" required>
-                            </div>
-                            <div class="col-md-2">
-                                <button type="button" class="btn btn-danger remove-product"> <i class="bi bi-trash"></i></button>
-                            </div>
+            $('#product-list').append(`
+                <div class="product-row mb-3">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <select name="products[${productIndex}][id]" id="product-${productIndex}" class="form-control product-select" required>
+                                <option value="">Pilih Produk</option>
+                                ${productOptions}
+                            </select>
+                        </div>
+                        <div class="col-md-5">
+                            <input type="number" name="products[${productIndex}][quantity]" class="form-control quantity" min="1" required>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-danger remove-product"> <i class="bi bi-trash"></i></button>
                         </div>
                     </div>
-                `);
+                </div>
+            `);
 
-                productIndex++;
-            }
+            productIndex++;
+        }
 
-            $('#add-product').click(function() {
-                addProductRow();
-            });
-
-            $('#product-list').on('click', '.remove-product', function() {
-                $(this).closest('.product-row').remove();
-                calculateTotal(); 
-            });
-
-            $('#product-list').on('change', '.quantity, .product-select', function() {
-                calculateTotal();
-            });
+        $('#add-product').click(function() {
+            addProductRow();
         });
-    </script>
+
+        $('#product-list').on('click', '.remove-product', function() {
+            $(this).closest('.product-row').remove();
+            calculateTotal();
+        });
+
+        $('#product-list').on('change', '.quantity, .product-select', function() {
+            calculateTotal();
+            updateStock();
+        });
+
+        function updateStock() {
+            $('.product-row').each(function() {
+                let select = $(this).find('.product-select');
+                let quantityInput = $(this).find('.quantity');
+                let stock = select.find('option:selected').data('stock');
+                let quantity = quantityInput.val();
+
+                if (quantity > stock) {
+                    quantityInput.val(stock);
+                    alert('Jumlah melebihi stok produk.');
+                }
+            });
+        }
+    });
+</script>
+
 @endsection
